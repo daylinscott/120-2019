@@ -48,3 +48,4 @@ if (circleY < 0)
   ellipse(400, circleY, 100);
 
 }
+text('Daylin Scott'10,30)
