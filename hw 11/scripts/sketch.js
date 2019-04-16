@@ -91,20 +91,20 @@ function enemyChase()
 function playerController()
 {
 if (keyIsDown) {
-  if (key == "a") //{
-    //if(x > 0)
+  if (key == "a") {
+    if(x > 0)
     {
     x -= 5;
   }
 }
-//}
+}
 //d key
 if (keyIsDown(68)) {
-  //if(x < 925)
+  if(x < 925)
   {
     x += 5;
   }
-  //}
+  }
 
   if (keyIsDown(87)) {
     if(y > 0)

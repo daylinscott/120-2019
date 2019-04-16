@@ -1,28 +1,44 @@
 var pug = new Character("assets/pug.jpg", 0,0,50,75); // created new object from the Character class
-var cat = new Character("assets/cat.jpg", 100,100,60,100);
-
+var cat = new Character("assets/cat.jpg", 500,1000,60,100);
+var tree = new Character("assets/tree1.jpg", 500, 200, 100, 150);
+var tree2 = new Character("assets/tree2.jpg", 500, 500, 100, 150);
+var tree3 = new Character("assets/tree3.jpg", 900, 400, 100, 150);
+var direction = "";
+var lives = 3;
+var y
+var x
 // preload our images
 function preload() {
     pug.load();
     cat.load();
-    
+    tree.load();
+    tree2.load();
+    tree3.load();
+
 }
 
 // set up the canvas for display
 function setup() {
-    createCanvas(800, 600);
+    createCanvas(displayWidth, displayHeight);
     background(0);
 }
 
 // draw everything to the canvas
 function draw() {
-    
+
     background(0);
     playerController();
     enemyChase(1);
     pug.display();
     cat.display();
-    
+    tree.display();
+    tree2.display();
+    tree3.display();
+    fill("pink");
+    textSize(50);
+    text("lives:", 1200, 500);
+    text(lives, 1325, 500);
+
 }
 
 // this allows us to move with the keyboard
@@ -31,55 +47,103 @@ function playerController()
    // prevent them from going out of bounds...
     if(keyIsPressed)
     {
-        if (key == "a") {
-            pug.addX = -5;
-        } 
-        if (key == "w") {
-            pug.addY = -5;
-        }
-        if (key == "s") {
-            pug.addY = 5;
-        }
-        if (key == "d") {
-            pug.addX = 5;
-        }
-    
-        if(hasCollided(pug, cat))
+        if (key == "a")
+        //if (x > 0)
         {
+            pug.addX = -5;
+            direction = "left";
+        }
+        if (key == "w")
+        //if (x < 925)
+         {
+            pug.addY = -5;
+            direction = "up";
+        }
+        if (key == "s")
+        //if (y > 0)
+        {
+            pug.addY = 5;
+            direction = "down";
+        }
+        if (key == "d")
+        //if (y < 750)
+        {
+            pug.addX = 5;
+            direction = "right";
+            print(pug.x)
+        }
+
+        if(hasCollided(pug, cat) || hasCollided(pug, tree) || hasCollided(pug, tree2) || hasCollided(pug, tree3))
+        { console.log("test2")
+          if (lives > 0)
+          {
+            lives = lives -1;
+          }
+          if(direction == "up")
+          { print("moving up")
+            moveDown();
+          }
+          else if(direction == "down")
+            {
+            moveUp();
+            }
+            else if(direction == "right")
+            {
+              moveLeft();
+            }
+            else if(direction == "left")
+            {
+              moveRight();
+            }
+        }
+
            // make sure they don't over run each other
         }
-    }
-    
-    
-}
 
+
+
+}
+function moveUp(){
+  pug.y-=5;
+
+}
+function moveDown(){
+pug.y+=5;
+}
+function moveLeft(){
+pug.x-=5;
+}
+function moveRight(){
+  pug.x+=5;
+
+}
 // this functions allows the enemy to chase the player
 function enemyChase(speed)
 {
-    if(cat.X > pug.X)
+    if(cat.x > pug.x)
     {
         cat.addX = -speed;
     }
-    if(cat.X < pug.x)
+    if(cat.x < pug.x)
     {
         cat.addX = speed;
     }
-    if(cat.Y > pug.y)
+    if(cat.y > pug.y)
     {
         cat.addY = -speed;
     }
-    if(cat.Y < pug.y)
+    if(cat.y < pug.y)
     {
         cat.addY = speed;
     }
 }
 
 // this just checks collision
-function hasCollided(object1, object2) {
+function hasCollided(cat, pug) {
     return !(
-        ((object1.Y + object1.H) < (object2.Y)) ||
-        (object1.Y > (object2.Y + object2.H)) ||
-        ((object1.X + object1.W) < object2.X) ||
-        (object1.X > (object2.X + object2.W))
+        ((cat.y + cat.H) < (pug.y)) ||
+        (cat.y > (pug.y + pug.H)) ||
+        ((cat.x + cat.W) < pug.x) ||
+        (cat.x > (pug.x + pug.W))
     );
 }
