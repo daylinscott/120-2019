@@ -1,5 +1,5 @@
 var pug = new Character("assets/pug.jpg", 0,0,50,75); // created new object from the Character class
-var cat = new Character("assets/cat.jpg", 500,1000,60,100);
+var cat = new Character("assets/cat.jpg", 600,600,60,100);
 var tree = new Character("assets/tree1.jpg", 500, 200, 100, 150);
 var tree2 = new Character("assets/tree2.jpg", 500, 500, 100, 150);
 var tree3 = new Character("assets/tree3.jpg", 900, 400, 100, 150);
