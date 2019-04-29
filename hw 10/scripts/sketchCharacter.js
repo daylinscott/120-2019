@@ -20,13 +20,13 @@ function preload() {
 // set up the canvas for display
 function setup() {
     createCanvas(displayWidth, displayHeight);
-    background(0);
+    background(152,251,152);
 }
 
 // draw everything to the canvas
 function draw() {
 
-    background(0);
+    background(152,251,152);
     playerController();
     enemyChase(1);
     pug.display();
